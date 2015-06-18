@@ -2,6 +2,8 @@ require 'rubygems'
 require 'sinatra'
 require 'twilio-ruby'
 
+points = 0
+
 get '/hello' do
   people = {
     '+14047180928' => 'Corinne Sarah Scott',
@@ -70,7 +72,94 @@ end
 get '/hello/simps/1' do
   redirect '/hello' unless ['1'].include?(params['Digits'])
   Twilio::TwiML::Response.new do |r|
+    r.Say 'This first question is worth 10 points.', voice: 'alice'
     r.Play '/sounds/02-coin.mp3'
     r.Say 'Round one... begin!', voice: 'alice'
+    r.Play '/sounds/english.mp3'
+    r.Gather :numDigits => '3', :action => '/hello/simps/2', :method => 'get' do |g|
+      g.Say '... Dial the first three letters of the characters first name.', voice: 'alice'
+    end
   end.text
+end
+
+get '/hello/simps/2' do
+  if params['Digits'] == '466'
+    points += 10
+    response = Twilio::TwiML::Response.new do |r|
+      r.Play '/sounds/woohoo.mp3'
+      r.Say 'That is correct for 10 points!', voice: 'alice'
+      r.Say 'You now have a total of #{points.to_s} points.', voice: 'alice'
+      r.Play '/sounds/44-coin-2.mp3'
+      r.Say 'This next question is worth 20 points.', voice: 'alice'
+      r.Say 'Round two... begin!', voice: 'alice'
+      r.Play '/sounds/surgery.mp3'
+      r.Gather :numDigits => '3', :action => '/hello/simps/3', :method => 'get' do |g|
+        g.Say '... Dial the first three letters of the characters first name.', voice: 'alice'
+      end
+    end
+  else
+    response = Twilio::TwiML::Response.new do |r|
+      r.Play '/sounds/doh.mp3'
+      r.Say 'That is incorrect. The correct answer was Homer or 4, 6, 6.', voice: 'alice'
+      r.Say 'You have points... May god have mercy upon you.', voice: 'alice'
+      r.Play '/sounds/44-coin-2.mp3'
+      r.Say 'This next question is worth 20 points.', voice: 'alice'
+      r.Say 'Round two... begin!', voice: 'alice'
+      r.Play '/sounds/surgery.mp3'
+      r.Gather :numDigits => '3', :action => '/hello/simps/3', :method => 'get' do |g|
+        g.Say '... Dial the first three letters of the characters first name.', voice: 'alice'
+      end
+    end
+  end
+  response.text
+end
+
+get '/hello/simps/3' do
+  if params['Digits'] == '642'
+    points += 20
+    response = Twilio::TwiML::Response.new do |r|
+      r.Play '/sounds/woohoo.mp3'
+      r.Say 'That is correct for 20 points!', voice: 'alice'
+      r.Say 'You now have a total of #{points.to_s} points.', voice: 'alice'
+      r.Play '/sounds/45-coin-3.mp3'
+      r.Say 'This next question is worth 30 points.', voice: 'alice'
+      r.Say 'Round two... begin!', voice: 'alice'
+      r.Play '/sounds/game.mp3'
+      r.Gather :numDigits => '3', :action => '/hello/simps/end', :method => 'get' do |g|
+        g.Say '... Dial the first three letters of the characters first name.', voice: 'alice'
+      end
+    end
+  else
+    response = Twilio::TwiML::Response.new do |r|
+      r.Play '/sounds/doh.mp3'
+      r.Say 'That is incorrect. The correct answer was Nick or 6, 4, 2.', voice: 'alice'
+      r.Say 'You now have a total of #{points.to_s} points.', voice: 'alice'
+      r.Play '/sounds/45-coin-3.mp3'
+      r.Say 'This next question is worth 30 points.', voice: 'alice'
+      r.Say 'Round two... begin!', voice: 'alice'
+      r.Play '/sounds/game.mp3'
+      r.Gather :numDigits => '3', :action => '/hello/simps/end', :method => 'get' do |g|
+        g.Say '... Dial the first three letters of the characters first name.', voice: 'alice'
+      end
+    end
+  end
+  response.text
+end
+
+get '/hello/simps/end' do
+  if params['Digits'] == '252'
+    points += 30
+    response = Twilio::TwiML::Response.new do |r|
+      r.Play '/sounds/woohoo.mp3'
+      r.Say 'That is correct for 30 points!', voice: 'alice'
+      r.Say 'You finished the game with #{points.to_s} points!', voice: 'alice'
+      r.Play '/sounds/43-game-over.mp3'
+      r.Gather :numDigits => '1', :action => '/hello/simps/end-menu', :method => 'get' do |g|
+        g.Say 'To play again, press 1 now.', voice: 'alice'
+        g.Say 'Press 2 to return to the main menu.', voice: 'alice'
+        g.Say 'Press any other key to disconnect.', voice: 'alice'
+      end
+    end
+  end
+  response.text
 end
