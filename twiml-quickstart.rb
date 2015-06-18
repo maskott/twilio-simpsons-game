@@ -169,7 +169,7 @@ end
 
 get '/hello/simps/end-menu' do
   if params['Digits'] == '1'
-    redirect '/hello/simps'
+    redirect '/hello/simps?Digits=1'
   else
     Twilio::TwiML::Response.new do |r|
       r.Say 'Goodbye.', voice: 'alice'
