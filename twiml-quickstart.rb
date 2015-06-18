@@ -68,7 +68,7 @@ get '/hello/handle-record' do
 end
 
 get '/hello/simps' do
-  redirect '/hello/simps' unless ['1'].include?(params['Digits'])
+  redirect '/hello' unless ['1'].include?(params['Digits'])
   if params['Digits'] == '1'
     r.Play '/sounds/02-coin.mp3'
     r.Say 'Round one... begin!', voice: 'alice'
