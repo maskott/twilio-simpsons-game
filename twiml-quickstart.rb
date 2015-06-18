@@ -101,7 +101,7 @@ get '/hello/simps/2' do
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/doh.mp3'
       r.Say 'That is incorrect. The correct answer was Homer or 4, 6, 6.', voice: 'alice'
-      r.Say 'You have points... May god have mercy upon you.', voice: 'alice'
+      r.Say 'You have no points... May god have mercy upon you.', voice: 'alice'
       r.Play '/sounds/44-coin-2.mp3'
       r.Say 'This next question is worth 20 points.', voice: 'alice'
       r.Say 'Round two... begin!', voice: 'alice'
