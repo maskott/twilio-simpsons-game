@@ -15,7 +15,7 @@ get '/hello' do
     r.Say "Ahoy hoy #{name}, Welcome to", voice: 'alice'
     r.Play '/sounds/beep14.mp3'
     r.Say "Twilio Test"
-    r.Play '/sounds/beep15.mp3'
+    # r.Play '/sounds/beep15.mp3'
     r.Gather :numDigits => '1', :action => '/hello/handle-gather', :method => 'get' do |g|
       g.Say 'To call Mikes cell phone, press 1.', voice: 'alice'
       g.Say 'Press 2 to record your own annoying voice.', voice: 'alice'
@@ -100,7 +100,7 @@ get '/hello/simps/2' do
   else
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/doh.mp3'
-      r.Say 'That is incorrect. The correct answer was Homer or 4, 6, 6.', voice: 'alice'
+      r.Say 'That is incorrect. The correct answer was Homer Simpson or 4, 6, 6.', voice: 'alice'
       r.Say 'You have no points... May god have mercy upon you.', voice: 'alice'
       r.Play '/sounds/44-coin-2.mp3'
       r.Say 'This next question is worth 20 points.', voice: 'alice'
@@ -132,7 +132,7 @@ get '/hello/simps/3' do
   else
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/doh.mp3'
-      r.Say 'That is incorrect. The correct answer was Nick or 6, 4, 2.', voice: 'alice'
+      r.Say 'That is incorrect. The correct answer was Nick Riviera or 6, 4, 2.', voice: 'alice'
       r.Say "You now have a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/45-coin-3.mp3'
       r.Say 'This next question is worth 30 points.', voice: 'alice'
@@ -160,6 +160,30 @@ get '/hello/simps/end' do
         g.Say 'Press any other key to disconnect.', voice: 'alice'
       end
     end
+  else
+    response = Twilio::TwiML::Response.new do |r|
+      r.Play '/sounds/doh.mp3'
+      r.Say 'That is incorrect. The correct answer was Clancy Wiggum or 2, 5, 2.', voice: 'alice'
+      r.Say "You finished the game with a total of #{points.to_s} points.", voice: 'alice'
+      r.Play '/sounds/43-game-over.mp3'
+      r.Gather :numDigits => '1', :action => '/hello/simps/end-menu', :method => 'get' do |g|
+        g.Say 'To play again, press 1 now.', voice: 'alice'
+        g.Say 'Press 2 to return to the main menu.', voice: 'alice'
+        g.Say 'Press any other key to disconnect.', voice: 'alice'
+      end
+    end
   end
   response.text
+end
+
+get '/hello/simps/end-menu' do
+  redirect '/hello' unless ['1', '3', '4', '5', '6', '7', '8', '9', '0'].include?(params['Digits'])
+  if params['Digits'] == '1'
+    redirect '/hello/handle-gather?Digits=3'
+  else
+    r.Say 'Goodbye.', voice: 'alice'
+    r.Play '/sounds/beep14.mp3'
+    r.Say "Twilio Test... out"
+    r.Play '/sounds/beep15.mp3'
+  end
 end
