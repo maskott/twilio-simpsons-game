@@ -4,15 +4,16 @@ require 'twilio-ruby'
 
 get '/hello' do
   people = {
-    '+14047180928' => 'Corinne',
-    '+14043755575' => 'Mike',
+    '+14047180928' => 'Corinne Sarah Scott',
+    '+14043755575' => 'Mike Scott with a K',
+    '+16786405495' => 'Myron Eli Scott with a K',
   }
   name = people[params['From']] || 'Caller'
   Twilio::TwiML::Response.new do |r|
     r.Say "Ahoy hoy #{name}, Welcome to", voice: 'alice'
-    r.Play 'sounds/beep14.mp3'
+    r.Play '/sounds/beep14.mp3'
     r.Say "Twilio Test"
-    r.Play 'sounds/beep15.mp3'
+    r.Play '/sounds/beep15.mp3'
     r.Gather :numDigits => '1', :action => '/hello/handle-gather', :method => 'get' do |g|
       g.Say 'To call Mikes cell phone, press 1.', voice: 'alice'
       g.Say 'Press 2 to record your own annoying voice.', voice: 'alice'
@@ -28,9 +29,9 @@ get '/hello/handle-gather' do
     response = Twilio::TwiML::Response.new do |r|
       r.Dial '+14043755575'
       r.Say 'Mikes phone is no longer available to you at this time. Goodbye.', voice: 'alice'
-      r.Play 'sounds/beep14.mp3'
+      r.Play '/sounds/beep14.mp3'
       r.Say "Twilio Test... out"
-      r.Play 'sounds/beep15.mp3'
+      r.Play '/sounds/beep15.mp3'
     end
   elsif params['Digits'] == '2'
     response = Twilio::TwiML::Response.new do |r|
@@ -39,9 +40,9 @@ get '/hello/handle-gather' do
     end
   elsif params['Digits'] == '3'
     response = Twilio::TwiML::Response.new do |r|
-      r.Play 'sounds/simpsons_intro.mp3'
+      r.Play '/sounds/simpsons_intro.mp3'
       r.Say 'Get ready to play the Simpsons audio game!', voice: 'alice'
-      r.Play 'sounds/hacker.mp3'
+      r.Play '/sounds/hacker.mp3'
       r.Gather :numDigits => '1', :action => '/hello/simps', :method => 'get' do |g|
         g.Say 'To skip these instructions and get straight to the game, press 1 at any time. Press any other number to repeat these instructions.', voice: 'alice'
         g.Say 'In a moment, you will hear an audio clip from the Simpsons. You must try to determine the name of the character that you hear in the clip.', voice: 'alice'
@@ -60,17 +61,17 @@ get '/hello/handle-record' do
     r.Say 'Seriously, just listen to what you sound like.', voice: 'alice'
     r.Play params['RecordingUrl']
     r.Say "I can't take any more. I just can't... Goodbye.", voice: 'alice'
-    r.Play 'sounds/beep14.mp3'
+    r.Play '/sounds/beep14.mp3'
     r.Say "Twilio Test... out"
-    r.Play 'sounds/beep15.mp3'
+    r.Play '/sounds/beep15.mp3'
   end.text
 end
 
 get '/hello/simps' do
   redirect '/hello/simps' unless ['1'].include?(params['Digits'])
   if params['Digits'] == '1'
-    r.Play 'sounds/02-coin.mp3'
+    r.Play '/sounds/02-coin.mp3'
     r.Say 'Round one... begin!', voice: 'alice'
-    
+
   end
 end
