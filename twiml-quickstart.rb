@@ -124,7 +124,7 @@ get '/hello/simps/end' do
     points += 30
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/woohoo.mp3'
-      r.Say 'That is correct for 30 points!', voice: 'alice'
+      r.Say 'Cheif Clancy Wiggum is correct for 30 points!', voice: 'alice'
       r.Say "You finished the game with a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/43-game-over.mp3'
       r.Gather :numDigits => '1', :action => '/hello/simps/end-menu', :method => 'get' do |g|
@@ -136,7 +136,7 @@ get '/hello/simps/end' do
   else
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/doh.mp3'
-      r.Say 'Cheif Clancy Wiggum is incorrect. The correct answer was Cheif Clancy Wiggum or 2, 5, 2.', voice: 'alice'
+      r.Say 'That is incorrect. The correct answer was Cheif Clancy Wiggum or 2, 5, 2.', voice: 'alice'
       r.Say "You finished the game with a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/43-game-over.mp3'
       r.Gather :numDigits => '1', :action => '/hello/simps/end-menu', :method => 'get' do |g|
