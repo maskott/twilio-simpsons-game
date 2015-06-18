@@ -33,9 +33,9 @@ get '/hello' do
     '+14042757666' => 'Doctor Richard Smiley',
     '+18182926583' => 'Chunk Daddy',
   }
-  name = people[params['From']] || 'Simpsons fan'
+  caller_name = people[params['From']] || 'Simpsons fan'
   Twilio::TwiML::Response.new do |r|
-    r.Say "Ahoy hoy #{name}, Welcome to", voice: 'alice'
+    r.Say "Ahoy hoy #{caller_name}, Welcome to", voice: 'alice'
     r.Say "Mike Skott's"
     r.Say "Simpson's audio game", voice: 'alice'
     r.Gather :numDigits => '1', :action => '/hello/simps', :method => 'get' do |g|
@@ -142,7 +142,7 @@ get '/hello/simps/end' do
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/woohoo.mp3'
       r.Say "#{q3[:name]} is correct for 30 points!", voice: 'alice'
-      r.Say "Congratulations #{name}! You finished the game with a total of #{points} points.", voice: 'alice'
+      r.Say "Congratulations #{caller_name}! You finished the game with a total of #{points} points.", voice: 'alice'
       r.Play '/sounds/43-game-over.mp3'
       r.Gather :numDigits => '1', :action => '/hello/simps/end-menu', :method => 'get' do |g|
         g.Say 'To play again, press 1 now.', voice: 'alice'
@@ -153,7 +153,7 @@ get '/hello/simps/end' do
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/doh.mp3'
       r.Say "That is incorrect. The correct answer was #{q3[:name]} or #{q3[:answer].split('').join(', ')}.", voice: 'alice'
-      r.Say "Congratulations #{name}! You finished the game with a total of #{points} points.", voice: 'alice'
+      r.Say "Congratulations #{caller_name}! You finished the game with a total of #{points} points.", voice: 'alice'
       r.Play '/sounds/43-game-over.mp3'
       r.Gather :numDigits => '1', :action => '/hello/simps/end-menu', :method => 'get' do |g|
         g.Say 'To play again, press 1 now.', voice: 'alice'
