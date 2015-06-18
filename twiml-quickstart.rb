@@ -39,11 +39,7 @@ get '/hello/handle-gather' do
       r.Record :maxLength => '30', :action => '/hello/handle-record', :method => 'get'
     end
   elsif params['Digits'] == '3'
-    response = Twilio::TwiML::Response.new do |r|
-      r.Play '/sounds/simpsons_intro.mp3'
-      r.Say 'Get ready to play the Simpsons audio game!', voice: 'alice'
-      redirect '/hello/simps'
-    end
+    redirect '/hello/simps'
   end
   response.text
 end
@@ -61,6 +57,8 @@ end
 
 get '/hello/simps' do
   Twilio::TwiML::Response.new do |r|
+    r.Play '/sounds/simpsons_intro.mp3'
+    r.Say 'Get ready to play the Simpsons audio game!', voice: 'alice'
     r.Play '/sounds/hacker.mp3'
     r.Gather :numDigits => '1', :action => '/hello/simps/1', :method => 'get' do |g|
       g.Say 'To skip these instructions and get straight to the game, press 1 at any time. Press any other number to repeat these instructions.', voice: 'alice'
