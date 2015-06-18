@@ -88,7 +88,7 @@ get '/hello/simps/2' do
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/woohoo.mp3'
       r.Say 'That is correct for 10 points!', voice: 'alice'
-      r.Say 'You now have a total of #{points.to_s} points.', voice: 'alice'
+      r.Say "You now have a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/44-coin-2.mp3'
       r.Say 'This next question is worth 20 points.', voice: 'alice'
       r.Say 'Round two... begin!', voice: 'alice'
@@ -120,7 +120,7 @@ get '/hello/simps/3' do
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/woohoo.mp3'
       r.Say 'That is correct for 20 points!', voice: 'alice'
-      r.Say 'You now have a total of #{points.to_s} points.', voice: 'alice'
+      r.Say "You now have a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/45-coin-3.mp3'
       r.Say 'This next question is worth 30 points.', voice: 'alice'
       r.Say 'Round two... begin!', voice: 'alice'
@@ -133,7 +133,7 @@ get '/hello/simps/3' do
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/doh.mp3'
       r.Say 'That is incorrect. The correct answer was Nick or 6, 4, 2.', voice: 'alice'
-      r.Say 'You now have a total of #{points.to_s} points.', voice: 'alice'
+      r.Say "You now have a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/45-coin-3.mp3'
       r.Say 'This next question is worth 30 points.', voice: 'alice'
       r.Say 'Round two... begin!', voice: 'alice'
@@ -152,7 +152,7 @@ get '/hello/simps/end' do
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/woohoo.mp3'
       r.Say 'That is correct for 30 points!', voice: 'alice'
-      r.Say 'You finished the game with #{points.to_s} points!', voice: 'alice'
+      r.Say "You finished the game with a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/43-game-over.mp3'
       r.Gather :numDigits => '1', :action => '/hello/simps/end-menu', :method => 'get' do |g|
         g.Say 'To play again, press 1 now.', voice: 'alice'
