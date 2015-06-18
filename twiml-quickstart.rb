@@ -75,7 +75,7 @@ get '/hello/simps' do
   end.text
 end
 
-get '/hello/simps/1' do
+get '/hello/simps/1?Digits=1' do
   redirect '/hello/simps' unless ['1'].include?(params['Digits'])
   Twilio::TwiML::Response.new do |r|
     r.Play '/sounds/02-coin.mp3'
