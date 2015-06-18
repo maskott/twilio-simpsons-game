@@ -24,16 +24,18 @@ q3_pool = [
   { mp3: "titpecker", name: "Prinipal Seymore Skinner", answer: "739" },
 ]
 q3 = ""
-people = {
-  '+14047180928' => 'Corinne Sarah Scott',
-  '+14043755575' => 'Mike Scott with a K',
-  '+16786405495' => 'Myron Eli Scott with a K',
-  '+14042757666' => 'Doctor Richard Smiley',
-  '+18182926583' => 'Chunk Daddy',
-}
-caller_name = people[params['From']] || 'Simpsons fan'
+
+caller_name = ""
 
 get '/hello' do
+  people = {
+    '+14047180928' => 'Corinne Sarah Scott',
+    '+14043755575' => 'Mike Scott with a K',
+    '+16786405495' => 'Myron Eli Scott with a K',
+    '+14042757666' => 'Doctor Richard Smiley',
+    '+18182926583' => 'Chunk Daddy',
+  }
+  caller_name = people[params['From']] || 'Simpsons fan'
   Twilio::TwiML::Response.new do |r|
     r.Say "Ahoy hoy #{caller_name}, Welcome to", voice: 'alice'
     r.Say "Mike Skott's"
