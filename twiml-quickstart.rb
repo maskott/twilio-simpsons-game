@@ -69,9 +69,8 @@ end
 get '/hello/simps/1' do
   redirect '/hello/simps' unless ['1'].include?(params['Digits'])
   Twilio::TwiML::Response.new do |r|
-    r.Say 'This first question is worth 10 points.', voice: 'alice'
     r.Play '/sounds/02-coin.mp3'
-    r.Say 'Round one... begin!', voice: 'alice'
+    r.Say 'This first question is worth 10 points. Here we go.', voice: 'alice'
     r.Gather :numDigits => '3', :action => '/hello/simps/2', :method => 'get' do |g|
       r.Play "/sounds/#{q1[:mp3]}.mp3"
       g.Say '... Dial the first three letters of the characters first name.', voice: 'alice'
@@ -85,10 +84,8 @@ get '/hello/simps/2' do
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/woohoo.mp3'
       r.Say "#{q1[:name]} is correct for 10 points!", voice: 'alice'
-      r.Say "You now have a total of #{points} points.", voice: 'alice'
       r.Play '/sounds/44-coin-2.mp3'
-      r.Say 'This next question is worth 20 points.', voice: 'alice'
-      r.Say 'Round two... begin!', voice: 'alice'
+      r.Say 'This next question is worth 20 points. Ready?', voice: 'alice'
       r.Gather :numDigits => '3', :action => '/hello/simps/3', :method => 'get' do |g|
         r.Play "/sounds/#{q2[:mp3]}.mp3"
         g.Say '... Dial the first three letters of the characters first name.', voice: 'alice'
@@ -100,8 +97,7 @@ get '/hello/simps/2' do
       r.Say "That is incorrect. The correct answer was #{q1[:name]} or #{q1[:answer].split('').join(', ')}.", voice: 'alice'
       r.Say 'You have no points... May god have mercy upon your soul.', voice: 'alice'
       r.Play '/sounds/44-coin-2.mp3'
-      r.Say 'This next question is worth 20 points.', voice: 'alice'
-      r.Say 'Round two... begin!', voice: 'alice'
+      r.Say 'This next question is worth 20 points. Ready?', voice: 'alice'
       r.Gather :numDigits => '3', :action => '/hello/simps/3', :method => 'get' do |g|
         r.Play "/sounds/#{q2[:mp3]}.mp3"
         g.Say '... Dial the first three letters of the characters first name.', voice: 'alice'
@@ -116,11 +112,9 @@ get '/hello/simps/3' do
     points += 20
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/woohoo.mp3'
-      r.Say "#{q2[:name]} is correct for 20 points!", voice: 'alice'
-      r.Say "You now have a total of #{points} points.", voice: 'alice'
+      r.Say "#{q2[:name]} is correct for 20 points, giving you #{points} total points!", voice: 'alice'
       r.Play '/sounds/45-coin-3.mp3'
-      r.Say 'This next question is worth 30 points.', voice: 'alice'
-      r.Say 'Round three... begin!', voice: 'alice'
+      r.Say 'This next question is worth 30 points. Ready?', voice: 'alice'
       r.Gather :numDigits => '3', :action => '/hello/simps/end', :method => 'get' do |g|
         r.Play "/sounds/#{q3[:mp3]}.mp3"
         g.Say '... Dial the first three letters of the characters first name.', voice: 'alice'
@@ -132,8 +126,7 @@ get '/hello/simps/3' do
       r.Say "That is incorrect. The correct answer was #{q2[:name]} or #{q2[:answer].split('').join(', ')}.", voice: 'alice'
       r.Say "You now have a total of #{points} points.", voice: 'alice'
       r.Play '/sounds/45-coin-3.mp3'
-      r.Say 'This next question is worth 30 points.', voice: 'alice'
-      r.Say 'Round three... begin!', voice: 'alice'
+      r.Say 'This next question is worth 30 points. Ready?', voice: 'alice'
       r.Gather :numDigits => '3', :action => '/hello/simps/end', :method => 'get' do |g|
         r.Play "/sounds/#{q3[:mp3]}.mp3"
         g.Say '... Dial the first three letters of the characters first name.', voice: 'alice'
