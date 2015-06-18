@@ -29,7 +29,7 @@ get '/hello/handle-gather' do
       r.Dial '+14043755575'
       r.Say 'Mikes phone is no longer available to you at this time. Goodbye.', voice: 'alice'
       r.Play 'http://mike.skott.us/projects/sounds/beep14.mp3'
-      r.Say "Twilio Test out"
+      r.Say "Twilio Test... out"
       r.Play 'http://mike.skott.us/projects/sounds/beep15.mp3'
     end
   elsif params['Digits'] == '2'
@@ -48,7 +48,7 @@ get '/hello/handle-record' do
     r.Play params['RecordingUrl']
     r.Say "I can't take any more. I just can't... Goodbye.", voice: 'alice'
     r.Play 'http://mike.skott.us/projects/sounds/beep14.mp3'
-    r.Say "Twilio Test, out"
+    r.Say "Twilio Test... out"
     r.Play 'http://mike.skott.us/projects/sounds/beep15.mp3'
   end.text
 end
