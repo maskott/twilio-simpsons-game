@@ -21,7 +21,7 @@ q2 = ""
 q3_pool = [
   { mp3: "roof", name: "Cletus Spuckler", answer: "253" },
   { mp3: "game", name: "Chief Clancy Wiggum", answer: "252" },
-  { mp3: "titpecker", name: "Prinipal Seymore Skinner", answer: "739" },
+  { mp3: "titpecker", name: "Principal Seymore Skinner", answer: "739" },
 ]
 q3 = ""
 
@@ -29,11 +29,12 @@ caller_name = ""
 
 get '/hello' do
   people = {
-    '+14047180928' => 'Corinne Sarah Scott',
-    '+14043755575' => 'Mike Scott with a K',
-    '+16786405495' => 'Myron Eli Scott with a K',
+    '+14047180928' => 'Corinne Skott',
+    '+14043755575' => 'Mike Skott',
+    '+16786405495' => 'Myron Skott',
     '+14042757666' => 'Doctor Richard Smiley',
     '+18182926583' => 'Chunk Daddy',
+    '+16784882915' => 'Ben Skott',
   }
   caller_name = people[params['From']] || 'Simpsons fan'
   Twilio::TwiML::Response.new do |r|
