@@ -70,7 +70,7 @@ get '/hello/handle-record' do
 end
 
 get '/hello/simps/1' do
-  redirect '/hello' unless ['1'].include?(params['Digits'])
+  redirect '/hello/handle-gather?Digits=3' unless ['1'].include?(params['Digits'])
   Twilio::TwiML::Response.new do |r|
     r.Say 'This first question is worth 10 points.', voice: 'alice'
     r.Play '/sounds/02-coin.mp3'
