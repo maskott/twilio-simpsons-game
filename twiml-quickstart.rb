@@ -97,7 +97,7 @@ get '/hello/simps/2' do
   else
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/doh.mp3'
-      r.Say "That is incorrect. The correct answer was #{q1[:name]} or #{q1[:answer]}.", voice: 'alice'
+      r.Say "That is incorrect. The correct answer was #{q1[:name]} or #{q1[:answer].split('').join('')}.", voice: 'alice'
       r.Say 'You have no points... May god have mercy upon your soul.', voice: 'alice'
       r.Play '/sounds/44-coin-2.mp3'
       r.Say 'This next question is worth 20 points.', voice: 'alice'
@@ -129,7 +129,7 @@ get '/hello/simps/3' do
   else
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/doh.mp3'
-      r.Say "That is incorrect. The correct answer was #{q2[:name]} or #{q2[:answer]}.", voice: 'alice'
+      r.Say "That is incorrect. The correct answer was #{q2[:name]} or #{q2[:answer].split('').join('')}.", voice: 'alice'
       r.Say "You now have a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/45-coin-3.mp3'
       r.Say 'This next question is worth 30 points.', voice: 'alice'
@@ -160,7 +160,7 @@ get '/hello/simps/end' do
   else
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/doh.mp3'
-      r.Say "That is incorrect. The correct answer was #{q3[:name]} or #{q3[:answer]}.", voice: 'alice'
+      r.Say "That is incorrect. The correct answer was #{q3[:name]} or #{q3[:answer].split('').join('')}.", voice: 'alice'
       r.Say "You finished the game with a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/43-game-over.mp3'
       r.Gather :numDigits => '1', :action => '/hello/simps/end-menu', :method => 'get' do |g|
