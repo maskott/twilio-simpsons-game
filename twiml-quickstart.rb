@@ -42,15 +42,7 @@ get '/hello/handle-gather' do
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/simpsons_intro.mp3'
       r.Say 'Get ready to play the Simpsons audio game!', voice: 'alice'
-      r.Play '/sounds/hacker.mp3'
-      r.Gather :numDigits => '1', :action => '/hello/simps', :method => 'get' do |g|
-        g.Say 'To skip these instructions and get straight to the game, press 1 at any time. Press any other number to repeat these instructions.', voice: 'alice'
-        g.Say 'In a moment, you will hear an audio clip from the Simpsons. You must try to determine the name of the character that you hear in the clip.', voice: 'alice'
-        g.Say 'If you hear more than one character, please respond with the first character you hear in the clip.', voice: 'alice'
-        g.Say 'You will enter your response by dialing the first three letters of the characters first name.', voice: 'alice'
-        g.Say 'There will be three audio quotes in each game. Good luck!', voice: 'alice'
-        g.Say 'Press 1 to begin the game, or any other number to repeat these instructions.', voice: 'alice'
-      end
+      redirect '/hello/simps'
     end
   end
   response.text
@@ -68,10 +60,26 @@ get '/hello/handle-record' do
 end
 
 get '/hello/simps' do
-  redirect '/hello' unless ['1'].include?(params['Digits'])
-  if params['Digits'] == '1'
-    r.Play '/sounds/02-coin.mp3'
-    r.Say 'Round one... begin!', voice: 'alice'
+  Twilio::TwiML::Response.new do |r|
+    r.Play '/sounds/hacker.mp3'
+    r.Gather :numDigits => '1', :action => '/hello/simps/1', :method => 'get' do |g|
+      g.Say 'To skip these instructions and get straight to the game, press 1 at any time. Press any other number to repeat these instructions.', voice: 'alice'
+      g.Say 'In a moment, you will hear an audio clip from the Simpsons. You must try to determine the name of the character that you hear in the clip.', voice: 'alice'
+      g.Say 'If you hear more than one character, please respond with the first character you hear in the clip.', voice: 'alice'
+      g.Say 'You will enter your response by dialing the first three letters of the characters first name.', voice: 'alice'
+      g.Say 'There will be three audio quotes in each game. Good luck!', voice: 'alice'
+      g.Say 'Press 1 to begin the game, or any other number to repeat these instructions.', voice: 'alice'
+    end
+  end
+end
 
+get '/hello/simps/1' do
+  Twilio::TwiML::Response.new do |r|
+    redirect '/hello' unless ['1'].include?(params['Digits'])
+    if params['Digits'] == '1'
+      r.Play '/sounds/02-coin.mp3'
+      r.Say 'Round one... begin!', voice: 'alice'
+
+    end
   end
 end
