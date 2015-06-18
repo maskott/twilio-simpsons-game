@@ -27,7 +27,7 @@ get '/hello' do
   end.text
 end
 
-get '/simps' do
+get '/hello/simps' do
   redirect '/hello' unless ['1'].include?(params['Digits'])
   points = 0
   Twilio::TwiML::Response.new do |r|
