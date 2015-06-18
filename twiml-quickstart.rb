@@ -2,8 +2,6 @@ require 'rubygems'
 require 'sinatra'
 require 'twilio-ruby'
 
-points = 0
-
 get '/hello' do
   people = {
     '+14047180928' => 'Corinne Sarah Scott',
@@ -41,6 +39,7 @@ get '/hello/handle-gather' do
       r.Record :maxLength => '30', :action => '/hello/handle-record', :method => 'get'
     end
   elsif params['Digits'] == '3'
+    points = 0
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/simpsons_intro.mp3'
       r.Say 'Get ready to play the Simpsons audio game!', voice: 'alice'
