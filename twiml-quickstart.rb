@@ -46,7 +46,7 @@ get '/hello/handle-record' do
   Twilio::TwiML::Response.new do |r|
     r.Say 'Seriously, just listen to what you sound like.'
     r.Play params['RecordingUrl']
-    r.Say 'I can\'t take any more. I just can\t... Goodbye.'
+    r.Say "I can't take any more. I just can't... Goodbye."
     r.Play 'http://mike.skott.us/projects/sounds/beep14.mp3'
     r.Say "Twilio Test"
     r.Play 'http://mike.skott.us/projects/sounds/beep15.mp3'
