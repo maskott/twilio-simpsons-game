@@ -43,7 +43,7 @@ get '/hello/simps' do
 end
 
 get '/hello/simps/1' do
-  redirect '/hello' unless ['1'].include?(params['Digits'])
+  redirect '/hello/simps' unless ['1'].include?(params['Digits'])
   Twilio::TwiML::Response.new do |r|
     r.Say 'This first question is worth 10 points.', voice: 'alice'
     r.Play '/sounds/02-coin.mp3'
@@ -60,7 +60,7 @@ get '/hello/simps/2' do
     points += 10
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/woohoo.mp3'
-      r.Say 'That is correct for 10 points!', voice: 'alice'
+      r.Say 'Homer Simpson is correct for 10 points!', voice: 'alice'
       r.Say "You now have a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/44-coin-2.mp3'
       r.Say 'This next question is worth 20 points.', voice: 'alice'
@@ -92,7 +92,7 @@ get '/hello/simps/3' do
     points += 20
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/woohoo.mp3'
-      r.Say 'That is correct for 20 points!', voice: 'alice'
+      r.Say 'Doctor Nick Riviera is correct for 20 points!', voice: 'alice'
       r.Say "You now have a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/45-coin-3.mp3'
       r.Say 'This next question is worth 30 points.', voice: 'alice'
@@ -105,7 +105,7 @@ get '/hello/simps/3' do
   else
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/doh.mp3'
-      r.Say 'That is incorrect. The correct answer was Nick Riviera or 6, 4, 2.', voice: 'alice'
+      r.Say 'That is incorrect. The correct answer was Doctor Nick Riviera or 6, 4, 2.', voice: 'alice'
       r.Say "You now have a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/45-coin-3.mp3'
       r.Say 'This next question is worth 30 points.', voice: 'alice'
@@ -136,7 +136,7 @@ get '/hello/simps/end' do
   else
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/doh.mp3'
-      r.Say 'That is incorrect. The correct answer was Clancy Wiggum or 2, 5, 2.', voice: 'alice'
+      r.Say 'Cheif Clancy Wiggum is incorrect. The correct answer was Cheif Clancy Wiggum or 2, 5, 2.', voice: 'alice'
       r.Say "You finished the game with a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/43-game-over.mp3'
       r.Gather :numDigits => '1', :action => '/hello/simps/end-menu', :method => 'get' do |g|
