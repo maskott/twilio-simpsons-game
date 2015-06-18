@@ -4,7 +4,12 @@ require 'twilio-ruby'
 
 points = 0
 
-q1_pool = ["english", "Homer Simpson", "466"]
+q1_pool = [
+  ["english", "Homer Simpson", "466"],
+  ["neddoodle", "Ned Flanders", "633"],
+  ["exports", "Bart Simpson", "227"],
+]
+q1 = q1_pool.shuffle.sample
 
 get '/hello' do
   people = {
@@ -51,18 +56,18 @@ get '/hello/simps/1' do
     r.Play '/sounds/02-coin.mp3'
     r.Say 'Round one... begin!', voice: 'alice'
     r.Gather :numDigits => '3', :action => '/hello/simps/2', :method => 'get' do |g|
-      r.Play '/sounds/english.mp3'
+      r.Play "/sounds/#{q1[0]}.mp3"
       g.Say '... Dial the first three letters of the characters first name.', voice: 'alice'
     end
   end.text
 end
 
 get '/hello/simps/2' do
-  if params['Digits'] == '466'
+  if params['Digits'] == q1[2]
     points += 10
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/woohoo.mp3'
-      r.Say 'Homer Simpson is correct for 10 points!', voice: 'alice'
+      r.Say "#{q1[1]} is correct for 10 points!", voice: 'alice'
       r.Say "You now have a total of #{points.to_s} points.", voice: 'alice'
       r.Play '/sounds/44-coin-2.mp3'
       r.Say 'This next question is worth 20 points.', voice: 'alice'
@@ -75,7 +80,7 @@ get '/hello/simps/2' do
   else
     response = Twilio::TwiML::Response.new do |r|
       r.Play '/sounds/doh.mp3'
-      r.Say 'That is incorrect. The correct answer was Homer Simpson or 4, 6, 6.', voice: 'alice'
+      r.Say "That is incorrect. The correct answer was #{q1[1]} or #{q1[2]}.", voice: 'alice'
       r.Say 'You have no points... May god have mercy upon your soul.', voice: 'alice'
       r.Play '/sounds/44-coin-2.mp3'
       r.Say 'This next question is worth 20 points.', voice: 'alice'
