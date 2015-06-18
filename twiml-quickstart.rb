@@ -141,7 +141,6 @@ get '/hello/simps/end' do
       r.Play '/sounds/43-game-over.mp3'
       r.Gather :numDigits => '1', :action => '/hello/simps/end-menu', :method => 'get' do |g|
         g.Say 'To play again, press 1 now.', voice: 'alice'
-        g.Say 'Press 2 to return to the main menu.', voice: 'alice'
         g.Say 'Press any other key to disconnect.', voice: 'alice'
       end
     end
@@ -150,7 +149,6 @@ get '/hello/simps/end' do
 end
 
 get '/hello/simps/end-menu' do
-  redirect '/hello' unless ['1', '3', '4', '5', '6', '7', '8', '9', '0'].include?(params['Digits'])
   if params['Digits'] == '1'
     redirect '/hello/simps'
   else
