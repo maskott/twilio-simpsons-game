@@ -4,6 +4,8 @@ require 'twilio-ruby'
 
 points = 0
 
+q1_pool = ["english", "Homer Simpson", "466"]
+
 get '/hello' do
   people = {
     '+14047180928' => 'Corinne Sarah Scott',
