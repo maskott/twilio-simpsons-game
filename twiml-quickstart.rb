@@ -9,7 +9,7 @@ q1_pool = [
   ["neddoodle", "Ned Flanders", "633"],
   ["exports", "Bart Simpson", "227"],
 ]
-q1 = q1_pool.shuffle.sample
+q1 = q1_pool.sample
 
 get '/hello' do
   people = {
