@@ -8,6 +8,8 @@ q1_pool = [
   { mp3: "english", name: "Homer Simpson", answer: "466" },
   { mp3: "neddoodle", name: "Ned Flanders", answer: "633"},
   { mp3: "exports", name: "Bart Simpson", answer: "227"},
+  { mp3: "whuptushie", name: "Marge Simpson", answer: "627"},
+  { mp3: "phrases", name: "Lisa Simpson", answer: "547"},
 ]
 q1 =""
 
@@ -15,6 +17,8 @@ q2_pool = [
   { mp3: "surgery", name: "Doctor Nick Riviera", answer: "642" },
   { mp3: "alcohol", name: "Mayor Joe Quimby", answer: "563" },
   { mp3: "nelsonhero", name: "Milhouse Van Houten", answer: "645" },
+  { mp3: "aspirin", name: "Apu Nahasapeemapetilon", answer: "278" },
+  { mp3: "olive", name: "Moe Szyslak", answer: "663" },
 ]
 q2 = ""
 
@@ -22,6 +26,8 @@ q3_pool = [
   { mp3: "roof", name: "Cletus Spuckler", answer: "253" },
   { mp3: "game", name: "Chief Clancy Wiggum", answer: "252" },
   { mp3: "titpecker", name: "Principal Seymore Skinner", answer: "739" },
+  { mp3: "lemonball", name: "Professor John Nerdelbaum Frink, Junior", answer: "564" },
+  { mp3: "17stab", name: "Waylon Smithers", answer: "929" },
 ]
 q3 = ""
 
