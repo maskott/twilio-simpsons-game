@@ -10,9 +10,9 @@ get '/hello' do
   name = people[params['From']] || 'Caller'
   Twilio::TwiML::Response.new do |r|
     r.Say "Hello #{name}, Welcome to"
-    r.Play 'sounds/beep14.mp3'
+    r.Play 'http://mike.skott.us/projects/sounds/beep14.mp3'
     r.Say "Twilio Test"
-    r.Play 'sounds/beep15.mp3'
+    r.Play 'http://mike.skott.us/projects/sounds/beep15.mp3'
     r.Gather :numDigits => '1', :action => '/hello/handle-gather', :method => 'get' do |g|
       g.Say 'To call Mikes cell phone, press 1.'
       g.Say 'Press 2 to record your own annoying voice.'
@@ -28,6 +28,9 @@ get '/hello/handle-gather' do
     response = Twilio::TwiML::Response.new do |r|
       r.Dial '+14043755575'
       r.Say 'Mikes phone is no longer available to you at this time. Goodbye.'
+      r.Play 'http://mike.skott.us/projects/sounds/beep14.mp3'
+      r.Say "Twilio Test"
+      r.Play 'http://mike.skott.us/projects/sounds/beep15.mp3'
     end
   elsif params['Digits'] == '2'
     response = Twilio::TwiML::Response.new do |r|
@@ -44,5 +47,8 @@ get '/hello/handle-record' do
     r.Say 'Seriously, just listen to what you sound like.'
     r.Play params['RecordingUrl']
     r.Say 'I can\'t take any more. I just can\t... Goodbye.'
+    r.Play 'http://mike.skott.us/projects/sounds/beep14.mp3'
+    r.Say "Twilio Test"
+    r.Play 'http://mike.skott.us/projects/sounds/beep15.mp3'
   end.text
 end
