@@ -9,7 +9,7 @@ get '/hello' do
   }
   name = people[params['From']] || 'Caller'
   Twilio::TwiML::Response.new do |r|
-    r.Say "Hello #{name}, Welcome to"
+    r.Say "Ahoy hoy #{name}, Welcome to", voice: 'alice'
     r.Play 'http://mike.skott.us/projects/sounds/beep14.mp3'
     r.Say "Twilio Test"
     r.Play 'http://mike.skott.us/projects/sounds/beep15.mp3'
