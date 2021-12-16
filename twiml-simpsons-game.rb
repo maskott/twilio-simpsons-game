@@ -2,6 +2,10 @@ require 'rubygems'
 require 'sinatra'
 require 'twilio-ruby'
 
+get '/' do
+  send_file File.join(settings.public_folder, 'index.html')
+end
+
 points = 0
 
 q1_pool = [
