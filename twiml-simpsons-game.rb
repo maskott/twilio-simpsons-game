@@ -82,7 +82,7 @@ get '/hello/simps/1' do
     r.Say 'This first question is worth 10 points. Here we go.', voice: 'alice'
     r.Gather :numDigits => '3', :action => '/hello/simps/2', :method => 'get' do |g|
       g.Play "/sounds/#{q1[:mp3]}.mp3"
-      g.Pause 2
+      g.Pause(length: 2)
       g.Say 'Dial the first three letters of the characters first name.', voice: 'alice'
     end
   end.text
