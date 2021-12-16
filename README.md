@@ -5,7 +5,7 @@ This is now hooked to Mike's trial Twilio account.
 
 ## Dial <a href="tel:6785401312">(678) 540-1312</a>
 
-To test everything out!
+<a href="tel:6785401312">Call now</a> to test everything out!
 
 ## Deployed on Heroku
 
