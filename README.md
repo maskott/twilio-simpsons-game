@@ -3,9 +3,9 @@ A playground for learning about Twilio.
 
 This is now hooked to Mike's trial Twilio account.
 
-## Dial <a href="tel:6785401312">(678) 540-1312</a>
+## Dial [(678) 540-1312](tel:6785401312)
 
-<a href="tel:6785401312">Call now</a> to test everything out!
+[Call now](tel:6785401312) to test everything out!
 
 ## Deployed on Heroku
 
