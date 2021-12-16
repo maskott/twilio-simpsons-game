@@ -98,7 +98,7 @@ get '/hello/simps/2' do
       r.Say 'This next question is worth 20 points. Ready?', voice: 'alice'
       r.Gather :numDigits => '3', :action => '/hello/simps/3', :method => 'get' do |g|
         g.Play "/sounds/#{q2[:mp3]}.mp3"
-        g.Pause 2
+        g.Pause(length: 2)
         g.Say 'Dial the first three letters of the characters first name.', voice: 'alice'
       end
     end
@@ -111,7 +111,7 @@ get '/hello/simps/2' do
       r.Say 'This next question is worth 20 points. Ready?', voice: 'alice'
       r.Gather :numDigits => '3', :action => '/hello/simps/3', :method => 'get' do |g|
         g.Play "/sounds/#{q2[:mp3]}.mp3"
-        g.Pause 2
+        g.Pause(length: 2)
         g.Say 'Dial the first three letters of the characters first name.', voice: 'alice'
       end
     end
@@ -129,7 +129,7 @@ get '/hello/simps/3' do
       r.Say 'This next question is worth 30 points. Ready?', voice: 'alice'
       r.Gather :numDigits => '3', :action => '/hello/simps/end', :method => 'get' do |g|
         g.Play "/sounds/#{q3[:mp3]}.mp3"
-        g.Pause 2
+        g.Pause(length: 2)
         g.Say 'Dial the first three letters of the characters first name.', voice: 'alice'
       end
     end
@@ -142,7 +142,7 @@ get '/hello/simps/3' do
       r.Say 'This next question is worth 30 points. Ready?', voice: 'alice'
       r.Gather :numDigits => '3', :action => '/hello/simps/end', :method => 'get' do |g|
         g.Play "/sounds/#{q3[:mp3]}.mp3"
-        g.Pause 2
+        g.Pause(length: 2)
         g.Say 'Dial the first three letters of the characters first name.', voice: 'alice'
       end
     end
